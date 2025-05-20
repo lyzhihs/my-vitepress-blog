@@ -1,42 +1,62 @@
-<script setup>
-import { useData } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-
-const { Layout } = DefaultTheme
-const { page } = useData()
-</script>
-
 <template>
   <Layout>
     <template #doc-after>
-      <ClientOnly>
-        <div class="giscus-wrapper">
-          <script 
-            src="https://giscus.app/client.js"
-            data-repo="lyzhihs/my-vitepress-blog"
-            data-repo-id="R_kgDON51SDg"
-            data-category="Announcements"
-            data-category-id="DIC_kwDON51SDs4CqYHg"
-            data-mapping="pathname"
-            data-strict="0"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="bottom"
-            data-theme="light"
-            data-lang="zh-CN"
-            crossorigin="anonymous"
-            async
-          ></script>
-        </div>
-      </ClientOnly>
+      <div class="giscus-wrapper">
+        <Giscus
+          :key="page.filePath"
+          repo="lyzhihs/my-vitepress-blog"
+          repo-id="R_kgDON51SDg"
+          category="Announcements"
+          category-id="DIC_kwDON51SDs4CqYHg"
+          mapping="pathname"
+          strict="0"
+          reactions-enabled="1"
+          emit-metadata="0"
+          input-position="bottom"
+          lang="zh-CN"
+          crossorigin="anonymous"
+          :theme="isDark ? 'dark' : 'light'" 
+        />
+      </div>
     </template>
   </Layout>
 </template>
 
+<script setup lang="ts">
+import Giscus from "@giscus/vue";
+import DefaultTheme from "vitepress/theme";
+import { watch } from "vue";
+import { inBrowser, useData } from "vitepress";
+
+const { isDark, page } = useData();
+const { Layout } = DefaultTheme;
+
+// 添加页面路径变化监听
+watch(() => page.value.relativePath, () => {
+  if (inBrowser) {
+    setTimeout(() => {
+      const iframe = document.querySelector('giscus-widget')?.shadowRoot?.querySelector('iframe');
+      iframe?.contentWindow?.location.reload();
+    }, 300);
+  }
+});
+
+// 优化主题切换逻辑
+watch(isDark, (dark) => {
+  if (!inBrowser) return;
+  
+  const giscusWidget = document.querySelector('giscus-widget');
+  if (giscusWidget) {
+    giscusWidget.setAttribute('theme', dark ? 'dark' : 'light');
+  }
+}, { immediate: true });
+</script>
+
 <style scoped>
 .giscus-wrapper {
   max-width: 760px;
-  margin: 0 auto;
-  padding: 2rem 0 4rem;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
 }
 </style>
+   
