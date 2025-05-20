@@ -24,24 +24,25 @@ hero:
   { 
     title: 'JavaScript高级', 
     description: 'Detailed explanation of feature 1', 
-    color1: 'rgb(173 255 0)', color2: '#00faff',  
     link: './JavaScript高级笔记' 
   },
   { 
     title: '数据结构', 
     description: 'Detailed explanation of feature 2',
+    color2: '#bd34fe',
+    color1: '#47caff',
     link: './数据结构与算法/数据结构'
   },
   { 
     title: '数学建模', 
     description: 'Detailed explanation of feature 4', 
-    color1: 'red', 
-    color2: 'blue',
     link: './数学建模'
   },
   { 
     title: 'Java', 
     description: 'Detailed explanation of feature 4',
+    color2: '#bd34fe',
+    color1: '#47caff',
     link: './Java学习笔记'
   }
 ]" />
