@@ -4,8 +4,26 @@ import { set_sidebar } from '../sidebar.js'
 export default defineConfig({
   base: '/my-vitepress-blog/',
   lang: 'zh-CN',
-  title: "博客吧",
-  description: "A VitePress Site",
+  title: "lyzhihs的个人博客 | 编程技术分享",  // 添加更明确的标题结构
+  description: "lyzhihs的个人技术博客，分享前端开发、JavaScript高级技巧、数据结构与算法等编程知识。专注技术实践与经验总结。",  // 增强关键词密度
+  
+  head: [
+    ['meta', { name: 'keywords', content: 'lyzhihs的个人博客, 编程博客, 技术博客, JavaScript教程, 算法学习, 数据结构' }],
+    ['meta', { name: 'author', content: 'lyzhihs' }],
+    ['link', { rel: 'canonical', href: 'https://yourdomain.com' }],  // 替换为实际域名
+    // 添加Open Graph协议
+    ['meta', { property: 'og:title', content: 'lyzhihs的个人技术博客' }],
+    ['meta', { property: 'og:description', content: '分享前端开发、JavaScript高级技巧、数据结构与算法等编程知识' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:url', content: 'https://yourdomain.com' }],
+    ['meta', { property: 'og:image', content: 'https://yourdomain.com/logo.png' }],  // 添加特色图片
+    // Twitter卡片
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'lyzhihs的个人技术博客' }],
+    ['meta', { name: 'twitter:description', content: '编程技术知识分享与实战经验总结' }],
+    ['meta', { name: 'twitter:image', content: 'https://yourdomain.com/logo.png' }]
+  ],
+
   themeConfig: {
     search: {
       provider: 'local',
@@ -72,5 +90,11 @@ export default defineConfig({
         link: '/login',
       }
     ]
+  },
+  markdown: {
+    lineNumbers: true,  // 提升代码可读性
+    toc: { 
+      level: [2, 3, 4]  // 优化目录结构
+    }
   },
 })
